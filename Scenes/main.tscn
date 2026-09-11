@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b0fpt8yg7pois" path="res://Scenes/Player.tscn" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://gxfbf72f1vd7" path="res://Scripts/hud.gd" id="3_8gbba"]
 [ext_resource type="Texture2D" uid="uid://7rkrorgi2xis" path="res://Assets/background1.png" id="3_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://bsmxklhcf6lbt" path="res://Scenes/coin.tscn" id="5_kry3j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jjvhh"]
 texture = ExtResource("1_bo1nx")
@@ -58,6 +59,9 @@ texture_filter = 1
 tile_map_data = PackedByteArray("AAABAAAAAQACAAAAAAACAAAAAQACAAAAAAADAAAAAQADAAAAAAAAAAAAAQABAAAAAAAFAAAAAQAAAAAAAAD9/wAAAQABAAAAAAD+/wAAAQADAAAAAAAMAAAAAQABAAAAAAANAAAAAQACAAAAAAAOAAAAAQADAAAAAAAIAP7/AQAGAAcAAAAJAP7/AQAGAAcAAAACAP7/AQAGAAcAAAA=")
 tile_set = SubResource("TileSet_y1q5r")
 
+[node name="Coin" parent="." unique_id=505077099 instance=ExtResource("5_kry3j")]
+position = Vector2(90, -14)
+
 [node name="PlayerBody" parent="." unique_id=369501526 instance=ExtResource("2_bo1nx")]
 position = Vector2(8, -18)
 
@@ -67,6 +71,7 @@ offset = Vector2(0, -32)
 
 [node name="HUD" type="Control" parent="PlayerBody/Camera2D" unique_id=1767347849]
 layout_mode = 3
+anchors_preset = 0
 offset_left = -174.0
 offset_top = -121.0
 offset_right = 160.0
@@ -77,19 +82,21 @@ script = ExtResource("3_8gbba")
 texture_filter = 1
 custom_minimum_size = Vector2(50, 16)
 layout_mode = 0
+offset_left = -1.0
 offset_top = -1.0
-offset_right = 50.0
+offset_right = 53.0
 offset_bottom = 16.0
 
 [node name="HealthIcon" type="TextureRect" parent="PlayerBody/Camera2D/HUD/HealthBox" unique_id=997068867]
 layout_mode = 2
 texture = SubResource("AtlasTexture_kry3j")
+stretch_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="PlayerBody/Camera2D" unique_id=983547845]
 z_index = -10
 texture_filter = 1
-offset_left = -306.0
-offset_top = -264.0
-offset_right = 334.0
-offset_bottom = 120.0
+offset_left = -301.0
+offset_top = -272.0
+offset_right = 339.0
+offset_bottom = 112.0
 texture = ExtResource("3_jjvhh")

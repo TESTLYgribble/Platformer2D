@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bsmxklhcf6lbt"]
+
+[ext_resource type="Texture2D" uid="uid://clp7y6rrkl3th" path="res://Assets/tilemap.png" id="1_2qo34"]
+[ext_resource type="Script" uid="uid://cyf0p5cbsy7g" path="res://Scripts/coin.gd" id="1_jgi06"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgi06"]
+atlas = ExtResource("1_2qo34")
+region = Rect2(210, 135, 17, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g537i"]
+atlas = ExtResource("1_2qo34")
+region = Rect2(228, 135, 17, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y1q5r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgi06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g537i")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y1q5r"]
+radius = 8.0
+
+[node name="Coin" type="Node2D" unique_id=505077099]
+script = ExtResource("1_jgi06")
+
+[node name="coinSprite" type="AnimatedSprite2D" parent="." unique_id=868479684]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_y1q5r")
+frame_progress = 0.27989757
+
+[node name="CoinArea" type="Area2D" parent="." unique_id=167943281]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CoinArea" unique_id=392479129]
+shape = SubResource("CircleShape2D_y1q5r")
+
+[connection signal="body_entered" from="CoinArea" to="." method="_on_coin_area_body_entered"]
