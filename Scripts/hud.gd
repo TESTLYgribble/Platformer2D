@@ -3,7 +3,7 @@ extends Control
 @onready var health_box: HBoxContainer = $HealthBox
 
 func _ready() -> void:
-	var player = get_node_or_null("../PlayerBody")
+	var player = get_tree().get_first_node_in_group("Player")
 	if player:
 		if player.has_signal("update_health"):
 			player.update_health.connect(update_health_display)
