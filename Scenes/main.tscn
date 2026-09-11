@@ -1,0 +1,95 @@
+[gd_scene format=4 uid="uid://bakqliok0rsog"]
+
+[ext_resource type="Texture2D" uid="uid://clp7y6rrkl3th" path="res://Assets/tilemap.png" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://b0fpt8yg7pois" path="res://Scenes/Player.tscn" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://gxfbf72f1vd7" path="res://Scripts/hud.gd" id="3_8gbba"]
+[ext_resource type="Texture2D" uid="uid://7rkrorgi2xis" path="res://Assets/background1.png" id="3_jjvhh"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jjvhh"]
+texture = ExtResource("1_bo1nx")
+margins = Vector2i(1, 1)
+separation = Vector2i(3, 3)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/bottom_right_corner = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/bottom_left_corner = 0
+2:0/0/terrains_peering_bit/left_side = 0
+2:0/0/terrains_peering_bit/top_left_corner = 0
+2:0/0/terrains_peering_bit/top_side = 0
+2:0/0/terrains_peering_bit/top_right_corner = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0/terrains_peering_bit/bottom_left_corner = 0
+3:0/0/terrains_peering_bit/left_side = 0
+3:0/0/terrains_peering_bit/top_left_corner = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_right_corner = 0
+1:0/0/terrains_peering_bit/top_right_corner = 0
+6:7/0 = 0
+6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0, 8, 0, 8, -8, -8, -8)
+6:7/0/physics_layer_0/polygon_0/one_way = true
+
+[sub_resource type="TileSet" id="TileSet_y1q5r"]
+physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 1
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "GrassyGreen"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/1 = SubResource("TileSetAtlasSource_jjvhh")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kry3j"]
+atlas = ExtResource("1_bo1nx")
+region = Rect2(78, 41, 14, 12)
+
+[node name="Main" type="Node2D" unique_id=1710498577]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1431192963]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAABAAAAAQACAAAAAAACAAAAAQACAAAAAAADAAAAAQADAAAAAAAAAAAAAQABAAAAAAAFAAAAAQAAAAAAAAD9/wAAAQABAAAAAAD+/wAAAQADAAAAAAAMAAAAAQABAAAAAAANAAAAAQACAAAAAAAOAAAAAQADAAAAAAAIAP7/AQAGAAcAAAAJAP7/AQAGAAcAAAACAP7/AQAGAAcAAAA=")
+tile_set = SubResource("TileSet_y1q5r")
+
+[node name="PlayerBody" parent="." unique_id=369501526 instance=ExtResource("2_bo1nx")]
+position = Vector2(8, -18)
+
+[node name="Camera2D" type="Camera2D" parent="PlayerBody" unique_id=440300356]
+position = Vector2(-8, 18)
+offset = Vector2(0, -32)
+
+[node name="HUD" type="Control" parent="PlayerBody/Camera2D" unique_id=1767347849]
+layout_mode = 3
+offset_left = -174.0
+offset_top = -121.0
+offset_right = 160.0
+offset_bottom = 57.0
+script = ExtResource("3_8gbba")
+
+[node name="HealthBox" type="HBoxContainer" parent="PlayerBody/Camera2D/HUD" unique_id=1872004576]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 16)
+layout_mode = 0
+offset_top = -1.0
+offset_right = 50.0
+offset_bottom = 16.0
+
+[node name="HealthIcon" type="TextureRect" parent="PlayerBody/Camera2D/HUD/HealthBox" unique_id=997068867]
+layout_mode = 2
+texture = SubResource("AtlasTexture_kry3j")
+
+[node name="TextureRect" type="TextureRect" parent="PlayerBody/Camera2D" unique_id=983547845]
+z_index = -10
+texture_filter = 1
+offset_left = -306.0
+offset_top = -264.0
+offset_right = 334.0
+offset_bottom = 120.0
+texture = ExtResource("3_jjvhh")
