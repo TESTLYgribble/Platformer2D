@@ -1,9 +1,11 @@
 [gd_scene format=4 uid="uid://bakqliok0rsog"]
 
 [ext_resource type="Texture2D" uid="uid://clp7y6rrkl3th" path="res://Assets/tilemap.png" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://bsmxklhcf6lbt" path="res://Scenes/coin.tscn" id="1_kry3j"]
 [ext_resource type="PackedScene" uid="uid://b0fpt8yg7pois" path="res://Scenes/Player.tscn" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://gxfbf72f1vd7" path="res://Scripts/hud.gd" id="3_8gbba"]
 [ext_resource type="Texture2D" uid="uid://7rkrorgi2xis" path="res://Assets/background1.png" id="3_jjvhh"]
+[ext_resource type="Texture2D" uid="uid://bt30bxvegm2o4" path="res://Assets/background2.png" id="5_21xkr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jjvhh"]
 texture = ExtResource("1_bo1nx")
@@ -38,6 +40,8 @@ separation = Vector2i(3, 3)
 6:7/0 = 0
 6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0, 8, 0, 8, -8, -8, -8)
 6:7/0/physics_layer_0/polygon_0/one_way = true
+8:3/0 = 0
+8:3/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, 0, 8, 0, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_y1q5r"]
 physics_layer_0/collision_layer = 1
@@ -51,11 +55,18 @@ sources/1 = SubResource("TileSetAtlasSource_jjvhh")
 atlas = ExtResource("1_bo1nx")
 region = Rect2(78, 41, 14, 12)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjvhh"]
+atlas = ExtResource("1_bo1nx")
+region = Rect2(212, 136, 12, 12)
+
 [node name="Main" type="Node2D" unique_id=1710498577]
+
+[node name="Coin" parent="." unique_id=505077099 instance=ExtResource("1_kry3j")]
+position = Vector2(88, -8)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1431192963]
 texture_filter = 1
-tile_map_data = PackedByteArray("AAABAAAAAQACAAAAAAACAAAAAQACAAAAAAADAAAAAQADAAAAAAAAAAAAAQABAAAAAAAFAAAAAQAAAAAAAAD9/wAAAQABAAAAAAD+/wAAAQADAAAAAAAMAAAAAQABAAAAAAANAAAAAQACAAAAAAAOAAAAAQADAAAAAAAIAP7/AQAGAAcAAAAJAP7/AQAGAAcAAAACAP7/AQAGAAcAAAA=")
+tile_map_data = PackedByteArray("AAABAAAAAQACAAAAAAACAAAAAQACAAAAAAADAAAAAQADAAAAAAAAAAAAAQABAAAAAAAFAAAAAQAAAAAAAAD9/wAAAQABAAAAAAD+/wAAAQADAAAAAAAMAAAAAQABAAAAAAANAAAAAQACAAAAAAAOAAAAAQADAAAAAAAIAP7/AQAGAAcAAAAJAP7/AQAGAAcAAAACAP7/AQAGAAcAAAADAP//AQAIAAMAAAAMAP//AQAIAAMAAAA=")
 tile_set = SubResource("TileSet_y1q5r")
 
 [node name="PlayerBody" parent="." unique_id=369501526 instance=ExtResource("2_bo1nx")]
@@ -64,6 +75,15 @@ position = Vector2(8, -18)
 [node name="Camera2D" type="Camera2D" parent="PlayerBody" unique_id=440300356]
 position = Vector2(-8, 18)
 offset = Vector2(0, -32)
+
+[node name="TextureRect2" type="TextureRect" parent="PlayerBody/Camera2D" unique_id=169900384]
+z_index = -9
+texture_filter = 1
+offset_left = -183.0
+offset_top = -141.0
+offset_right = 457.0
+offset_bottom = 243.0
+texture = ExtResource("5_21xkr")
 
 [node name="TextureRect" type="TextureRect" parent="PlayerBody/Camera2D" unique_id=983547845]
 z_index = -10
@@ -86,19 +106,34 @@ script = ExtResource("3_8gbba")
 [node name="HealthBox" type="HBoxContainer" parent="PlayerBody/Camera2D/HUD" unique_id=1872004576 groups=["Player"]]
 texture_filter = 1
 layout_mode = 0
-offset_left = 9.0
-offset_top = 5.0
-offset_right = 59.0
-offset_bottom = 22.0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 54.0
+offset_bottom = 21.0
 
 [node name="HealthIcon" type="TextureRect" parent="PlayerBody/Camera2D/HUD/HealthBox" unique_id=997068867]
 layout_mode = 2
 texture = SubResource("AtlasTexture_kry3j")
+stretch_mode = 2
 
-[node name="HealthIcon2" type="TextureRect" parent="PlayerBody/Camera2D/HUD/HealthBox" unique_id=842788414]
-layout_mode = 2
-texture = SubResource("AtlasTexture_kry3j")
+[node name="CoinBox" type="HBoxContainer" parent="PlayerBody/Camera2D/HUD" unique_id=138992242]
+layout_mode = 0
+offset_left = 279.0
+offset_top = -3.0
+offset_right = 319.0
+offset_bottom = 20.0
 
-[node name="HealthIcon3" type="TextureRect" parent="PlayerBody/Camera2D/HUD/HealthBox" unique_id=1620976727]
+[node name="CoinCount" type="Label" parent="PlayerBody/Camera2D/HUD/CoinBox" unique_id=584257230]
 layout_mode = 2
-texture = SubResource("AtlasTexture_kry3j")
+text = "0x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoinIcon" type="TextureRect" parent="PlayerBody/Camera2D/HUD/CoinBox" unique_id=734419788]
+texture_filter = 1
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 7)
+texture = SubResource("AtlasTexture_jjvhh")
+stretch_mode = 2

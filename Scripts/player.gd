@@ -19,10 +19,13 @@ func _physics_process(delta: float) -> void:
 	if global_position.y >= 180.0:
 		global_position = spawn_position
 		velocity = Vector2.ZERO 
+		take_damage()
+		update_health.emit(player_health)
 
 	# Gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		player_sprite.play("Fall")
 
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = jump_velocity
@@ -36,12 +39,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
 		player_sprite.play("Idle")
 
+
 	move_and_slide()
 	
-	#testing for update_health_signal
-	if(Input.is_key_pressed(KEY_F)):
-		player_health-=1
-		update_health.emit(player_health)
-	if(Input.is_key_pressed(KEY_G)):
-		player_health+=1
-		update_health.emit(player_health)
+func take_damage():
+	player_health -= 1
