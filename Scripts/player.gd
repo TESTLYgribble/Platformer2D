@@ -16,11 +16,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Out of bounds reset
-	if global_position.y >= 180.0:
-		global_position = spawn_position
-		velocity = Vector2.ZERO 
-		take_damage()
-		update_health.emit(player_health)
+	if global_position.y >= 100.0:
+		respawn()
 
 	# Gravity
 	if not is_on_floor():
@@ -38,9 +35,25 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, move_speed)
 		player_sprite.play("Idle")
-
+	
+	if player_health == 0:
+		die()
 
 	move_and_slide()
-	
+
 func take_damage():
 	player_health -= 1
+	update_health.emit(player_health)
+
+func respawn():
+		global_position = spawn_position
+		velocity = Vector2.ZERO 
+		take_damage()
+
+func die() -> void:
+	get_tree().quit()
+
+func _on_hurtbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	print("Area2D detected something: ", body.name)
+	if body is TileMapLayer:
+		respawn()

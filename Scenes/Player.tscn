@@ -109,6 +109,9 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nl1qf"]
+size = Vector2(11, 16)
+
 [node name="PlayerBody" type="CharacterBody2D" unique_id=369501526]
 script = ExtResource("1_kyqiw")
 
@@ -121,3 +124,13 @@ shape = SubResource("RectangleShape2D_kyqiw")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_y1q5r")
 animation = &"Fall"
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=721174067]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1902810432]
+position = Vector2(0.5, 3)
+shape = SubResource("RectangleShape2D_nl1qf")
+debug_color = Color(0.83901256, 0.36452523, 0.33748505, 0.41960785)
+
+[connection signal="body_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_body_shape_entered"]
